@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Station</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .weather-station {
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .instrument {
+            margin-bottom: 20px;
+        }
+        .instrument h2 {
+            margin-top: 0;
+            font-size: 1.5rem;
+        }
+        .data {
+            font-size: 1.2rem;
+        }
+        .weather-icon {
+            font-size: 3rem;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="weather-station">
+        <div class="instrument">
+            <h2>Temperature</h2>
+            <div class="data" id="temperature">0 °C</div>
+        </div>
+        <div class="instrument">
+            <h2>Pressure</h2>
+            <div class="data" id="pressure">0 Pa</div>
+        </div>
+        <div class="instrument">
+            <h2>Humidity</h2>
+            <div class="data" id="humidity">0 %</div>
+        </div>
+        <div class="instrument">
+            <h2>Weather</h2>
+            <div class="weather-icon" id="weatherIcon">
+                <!-- Weather icon will be updated dynamically -->
+            </div>
+            <div class="data" id="weatherStatus">Current weather: Sunny</div>
+        </div>
+    </div>
+
+    <script>
+        var socket = io();
+
+        socket.on('update_status', function(status) {
+            document.getElementById('temperature').innerText = status.temperature + ' °C';
+            document.getElementById('pressure').innerText = status.pressure + ' Pa';
+            document.getElementById('humidity').innerText = status.humidity + ' %';
+
+            // Update weather icon and status based on conditions
+            var weatherIcon = document.getElementById('weatherIcon');
+            var weatherStatus = document.getElementById('weatherStatus');
+
+            if (status.temperature > 25 && status.humidity > 60) {
+                weatherIcon.innerHTML = '<img src="/static/sun.png" alt="Image" width="50" height="50" />';
+                weatherStatus.innerText = 'Current weather: Sunny';
+            }
+            else if (status.temperature <= 0 && status.humidity > 50) {
+                weatherIcon.innerHTML = '<img src="/static/snow.png" alt="Image" width="50" height="50" />';
+                weatherStatus.innerText = 'Current weather: Snowy';
+            } 
+            else {
+                weatherIcon.innerHTML = '<img src="/static/rain.png" alt="Image" width="50" height="50" />';
+                weatherStatus.innerText = 'Current weather: Rainy';
+            }
+        });
+    </script>
+</body>
+</html>
