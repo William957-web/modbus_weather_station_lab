@@ -4,7 +4,7 @@ This is a beginner ICS Security lab dealing with modbus protocol
 ## Setup
 1. package installation:  
 ```py
-pip3 install -r requirements.txt
+sudo pip3 install -r requirements.txt
 ```
 
 2. victim machine setup:  
