@@ -16,7 +16,7 @@ sudo python3 station.py
 
 Web UI:  
 ```py
-app.py
+sudo python3 app.py
 ```
 It's EZ~  
 
