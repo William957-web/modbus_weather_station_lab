@@ -1,5 +1,6 @@
 ## Hello World
 This is a beginner ICS Security lab dealing with modbus protocol
+[中文筆記：https://wha13.github.io/2024/06/30/mfics-modbus/](https://wha13.github.io/2024/06/30/mfics-modbus/)
 
 ## Setup
 1. package installation:  
