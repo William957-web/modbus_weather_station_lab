@@ -16,10 +16,6 @@ def update_registers(context):
         temperature = random.randint(20, 30)
         pressure = random.randint(1000, 1100)
         humidity = random.randint(30, 50)
-
-        if online == 0:
-            break
-
         context[slave_id].setValues(3, address, [temperature])
         context[slave_id].setValues(3, address + 1, [pressure])
         context[slave_id].setValues(3, address + 2, [humidity])
